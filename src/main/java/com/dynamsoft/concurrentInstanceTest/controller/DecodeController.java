@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/decode")
@@ -19,7 +18,7 @@ public class DecodeController {
     DecodeService decodeService;
 
     @PostMapping(consumes = {"multipart/form-data"})
-    String decode(@RequestParam("image")MultipartFile mpImage) throws IOException {
+    String decode(@RequestParam("image")MultipartFile mpImage) throws Exception {
         var bytesImage = mpImage.getBytes();
         var results = decodeService.decode(bytesImage);
         return zzUtil.jsonMapper.writeValueAsString(results);
