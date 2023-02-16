@@ -16,10 +16,6 @@ public class DynamsoftBarcodeWrapper {
         try {
             BarcodeReader.setMaxConcurrentInstanceCount(countForThisDevice, countForThisProcess);
             BarcodeReader.initLicense(license);
-            var availableCount = BarcodeReader.getIdleInstancesCount();
-            if(0 == availableCount){
-                throw new Exception("No dynamsoft license seat available.");
-            }
         } catch (Exception ex) {
             ex.printStackTrace();
             initException = ex;
@@ -29,6 +25,8 @@ public class DynamsoftBarcodeWrapper {
     public static TextResult[] decode(byte[] bytes) throws Exception {
         if(null != initException){ throw  initException; }
         var reader = BarcodeReader.getInstance();
-        return reader.decodeFileInMemory(bytes, "");
+        var results = reader.decodeFileInMemory(bytes, "");
+        reader.recycle();
+        return results;
     }
 }
