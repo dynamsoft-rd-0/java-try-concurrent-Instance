@@ -18,14 +18,15 @@
 		<skipTests>true</skipTests>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>dbr</id>
-			<url>https://download2.dynamsoft.com/maven/dbr/jar</url>
-		</repository>
-	</repositories>
+<!--	<repositories>-->
+<!--		<repository>-->
+<!--			<id>dbr</id>-->
+<!--			<url>https://download2.dynamsoft.com/maven/dbr/jar</url>-->
+<!--		</repository>-->
+<!--	</repositories>-->
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -34,10 +35,21 @@
 			<groupId>com.dynamsoft</groupId>
 			<artifactId>dbr</artifactId>
 			<version>9.6.10</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/dynamsoft-barcodereader-9.6.10.jar</systemPath>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>lib</directory>
+				<targetPath>BOOT-INF/lib/</targetPath>
+				<includes>
+					<include>**/*.jar</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
